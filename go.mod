@@ -8,7 +8,7 @@ require (
 	charm.land/lipgloss/v2 v2.0.6
 	github.com/abema/go-mp4 v1.7.1
 	github.com/dustin/go-humanize v1.0.1
-	github.com/mattn/go-runewidth v0.0.27
+	github.com/mattn/go-runewidth v0.0.28
 	github.com/spf13/cobra v1.10.2
 	golang.org/x/term v0.45.0
 	gopkg.in/vansante/go-ffprobe.v2 v2.3.0
