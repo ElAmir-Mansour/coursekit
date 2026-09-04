@@ -396,7 +396,9 @@ separately, never added to the runtime.
 
 Bug reports and pull requests are welcome. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the build and test commands and a tour of
-the layout.
+the layout, and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for the ground rules.
+
+Security issues have their own route: see [SECURITY.md](SECURITY.md).
 
 ```sh
 git clone https://github.com/ElAmir-Mansour/coursekit

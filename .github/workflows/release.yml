@@ -25,12 +25,29 @@ jobs:
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
+      # The Homebrew formula needs a token with write access to the tap
+      # repository, which GITHUB_TOKEN cannot provide because it is scoped to
+      # this repo alone. Rather than fail the whole release when that secret
+      # is absent, skip just the formula step: binaries and checksums still
+      # publish, and the formula starts publishing the moment the secret
+      # exists.
+      - name: Decide whether the Homebrew formula can be published
+        id: flags
+        env:
+          TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          if [ -n "$TAP_TOKEN" ]; then
+            echo "args=release --clean" >> "$GITHUB_OUTPUT"
+            echo "Publishing the Homebrew formula."
+          else
+            echo "args=release --clean --skip=homebrew" >> "$GITHUB_OUTPUT"
+            echo "::notice::HOMEBREW_TAP_TOKEN is not set, so the Homebrew formula will not be published. Binaries are unaffected."
+          fi
+
       - uses: goreleaser/goreleaser-action@v7
         with:
           version: latest
-          args: release --clean
+          args: ${{ steps.flags.outputs.args }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # A personal access token with write access to the tap repository.
-          # Set this in the repo's secrets before the first release.
           HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}

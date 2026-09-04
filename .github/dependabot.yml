@@ -1,0 +1,32 @@
+version: 2
+
+updates:
+  # Go modules. Grouped so a routine dependency bump is one pull request
+  # rather than nine.
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      charm:
+        patterns:
+          - "charm.land/*"
+      go-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "charm.land/*"
+    commit-message:
+      prefix: "deps"
+
+  # The workflows pin action majors, and those majors go stale: the first CI
+  # run of this project failed because golangci-lint-action resolved "latest"
+  # to a version built with an older Go than the module targets.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"

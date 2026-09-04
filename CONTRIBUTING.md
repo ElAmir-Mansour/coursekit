@@ -2,6 +2,10 @@
 
 Bug reports, feature requests and pull requests are all welcome.
 
+By taking part you agree to the [Code of Conduct](CODE_OF_CONDUCT.md). If you
+have found a security issue, please use the route in [SECURITY.md](SECURITY.md)
+rather than a public issue.
+
 ## Getting set up
 
 ```sh
