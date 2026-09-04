@@ -78,6 +78,11 @@ brews:
 release:
   draft: false
   prerelease: auto
+  # Replace assets rather than refusing to overwrite them. Without this a
+  # re-run of a release fails with "already_exists" on the first artifact and
+  # never reaches the later steps, which is exactly what happened when the
+  # Homebrew token was added after v0.1.0 had already published its binaries.
+  mode: replace
   footer: |
     ---
 

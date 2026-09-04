@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-04
+
+### Fixed
+
+- The release workflow could not be re-run. GoReleaser refused to overwrite
+  existing release assets, so a re-run failed on the first artifact and never
+  reached the Homebrew step. Releases now replace their assets, which is what
+  makes adding a missing credential after the fact recoverable.
+
+### Added
+
+- Homebrew formula publishing is now active, so
+  `brew install ElAmir-Mansour/tap/coursekit` works.
+
 ## [0.1.0] - 2026-09-04
 
 First release.
@@ -40,5 +54,6 @@ First release.
 - Metadata cache keyed on path, size and modification time, kept outside the
   course folder.
 
-[Unreleased]: https://github.com/ElAmir-Mansour/coursekit/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ElAmir-Mansour/coursekit/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/ElAmir-Mansour/coursekit/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ElAmir-Mansour/coursekit/releases/tag/v0.1.0
