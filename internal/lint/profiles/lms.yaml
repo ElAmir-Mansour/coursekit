@@ -1,0 +1,49 @@
+name: lms
+description: Self-hosted platform or LMS, prioritising browser playback and bandwidth
+reference: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs
+
+video:
+  aspect_ratios: []
+  min_width: 854
+  min_height: 480
+  recommended_width: 1920
+  recommended_height: 1080
+  # H.264 is the only codec that plays everywhere in a browser without a
+  # fallback. HEVC is fine in Safari and unreliable in Chrome and Firefox, so
+  # a course delivered from your own site should not depend on it. This is the
+  # rule that catches an otherwise perfectly good Mac screen recording.
+  codecs: [h264]
+  min_fps: 24
+  max_fps: 60
+  min_bitrate_kbps: 800
+  recommended_bitrate_kbps: 3000
+
+audio:
+  required: true
+  codecs: [aac, mp3, opus]
+  min_bitrate_kbps: 128
+  recommended_bitrate_kbps: 192
+  channels: [1, 2]
+  sample_rates: [44100, 48000]
+  target_lufs: -16.0
+  lufs_tolerance: 3.0
+  max_true_peak_dbtp: -1.0
+
+file:
+  containers: [mp4, webm]
+  # Streaming your own video means paying for every byte, and students on a
+  # phone connection abandon large files.
+  max_size_bytes: 2147483648
+  max_duration_seconds: 10800
+  # Names travel through URLs, zip files and other people's operating systems.
+  portable_names: true
+  ascii_only: false
+
+consistency:
+  uniform_resolution: true
+  uniform_sample_rate: true
+  uniform_frame_rate: false
+  uniform_codec: true
+  max_loudness_spread_lu: 4.0
+  numbering_gaps: true
+  chapter_ordering: true

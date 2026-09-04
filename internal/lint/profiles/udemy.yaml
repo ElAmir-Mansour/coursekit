@@ -1,0 +1,53 @@
+name: udemy
+description: Udemy course video standards
+reference: https://business-support.udemy.com/hc/en-us/articles/360022570274-Video-Standards
+
+video:
+  # Udemy is strict about shape: 16:9 landscape only. A Mac screen recording
+  # defaults to 16:10, which is the single most common reason a finished
+  # course has to be re-exported before it can be uploaded.
+  aspect_ratios: ["16:9"]
+  aspect_tolerance: 0.012
+  min_width: 1280
+  min_height: 720
+  recommended_width: 1920
+  recommended_height: 1080
+  codecs: [h264, hevc, prores, prores_ks]
+  min_fps: 25
+  max_fps: 60
+  # HEVC at 1080p is recommended around 6 Mb/s, H.264 around 10 Mb/s. The
+  # floor here is deliberately well below that: screen recordings of static
+  # slides compress far better than camera footage, and flagging every one of
+  # them as broken would be noise.
+  min_bitrate_kbps: 1000
+  recommended_bitrate_kbps: 6000
+
+audio:
+  required: true
+  codecs: [aac, pcm_s16le, pcm_s24le, pcm_f32le]
+  min_bitrate_kbps: 256
+  recommended_bitrate_kbps: 256
+  channels: [2]
+  sample_rates: [44100, 48000]
+  # Udemy does not publish a loudness figure. -16 LUFS is the widely used
+  # target for spoken educational content, so this is advice rather than a
+  # platform requirement.
+  target_lufs: -16.0
+  lufs_tolerance: 3.0
+  max_true_peak_dbtp: -1.0
+
+file:
+  containers: [mp4, mov]
+  max_size_bytes: 4294967296
+  max_duration_seconds: 14400
+  portable_names: true
+  ascii_only: false
+
+consistency:
+  uniform_resolution: true
+  uniform_sample_rate: true
+  uniform_frame_rate: true
+  uniform_codec: false
+  max_loudness_spread_lu: 4.0
+  numbering_gaps: true
+  chapter_ordering: true

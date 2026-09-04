@@ -1,0 +1,44 @@
+version: "2"
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - misspell
+    - revive
+    - bodyclose
+    - unconvert
+    - whitespace
+
+  settings:
+    revive:
+      rules:
+        - name: exported
+          disabled: true
+    misspell:
+      # No locale is set on purpose. Forcing UK spelling flags the
+      # "--no-color" flag and the NO_COLOR environment variable, both of which
+      # are fixed cross-tool conventions.
+      ignore-rules:
+        - color
+        - colour
+
+  exclusions:
+    rules:
+      # Test files may ignore errors from setup helpers where a failure would
+      # be caught by the assertion that follows.
+      - path: _test\.go
+        linters:
+          - errcheck
+      # The parser fixtures are deliberately misspelled: tolerating typos like
+      # "Chpater" and "Modle" is the behaviour under test.
+      - path: internal/model/parse_test\.go
+        linters:
+          - misspell
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

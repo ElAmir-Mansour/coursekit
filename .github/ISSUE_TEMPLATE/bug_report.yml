@@ -1,0 +1,52 @@
+name: Bug report
+description: Something did not work the way it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        If it involves specific video files, the output of
+        `coursekit scan . --json` is usually enough — no need to share the
+        videos themselves.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you ran, and what you expected instead.
+      placeholder: |
+        I ran `coursekit doctor ~/courses/mine --profile udemy` and it reported
+        every file as the wrong aspect ratio, but they are all 1920x1080.
+    validations:
+      required: true
+
+  - type: textarea
+    id: version
+    attributes:
+      label: coursekit version
+      description: The full output of `coursekit version`.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: scan-output
+    attributes:
+      label: Relevant output
+      description: >
+        Output from the command that misbehaved. `--json` is often the most
+        useful form. Please redact anything you would rather not share.
+      render: shell
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true

@@ -1,0 +1,47 @@
+name: youtube
+description: YouTube upload guidance, where consistent loudness matters more than exact specs
+reference: https://support.google.com/youtube/answer/4603579
+
+video:
+  # YouTube accepts essentially any shape and pillarboxes the rest, so shape
+  # is left unconstrained here and only checked for consistency.
+  aspect_ratios: []
+  min_width: 1280
+  min_height: 720
+  recommended_width: 1920
+  recommended_height: 1080
+  codecs: [h264, hevc, av1, vp9, prores]
+  min_fps: 24
+  max_fps: 60
+  min_bitrate_kbps: 1000
+  recommended_bitrate_kbps: 8000
+
+audio:
+  required: true
+  codecs: [aac, opus, flac, pcm_s16le, pcm_s24le]
+  min_bitrate_kbps: 128
+  recommended_bitrate_kbps: 384
+  channels: [2]
+  sample_rates: [44100, 48000]
+  # YouTube normalises playback toward roughly -14 LUFS. Uploading quieter
+  # than that is not rejected, it is simply played back quieter than
+  # everything around it, which is why the tolerance is tight.
+  target_lufs: -14.0
+  lufs_tolerance: 2.0
+  max_true_peak_dbtp: -1.0
+
+file:
+  containers: [mp4, mov, mkv, webm]
+  max_size_bytes: 137438953472
+  max_duration_seconds: 43200
+  portable_names: false
+  ascii_only: false
+
+consistency:
+  uniform_resolution: true
+  uniform_sample_rate: true
+  uniform_frame_rate: true
+  uniform_codec: false
+  max_loudness_spread_lu: 3.0
+  numbering_gaps: true
+  chapter_ordering: true

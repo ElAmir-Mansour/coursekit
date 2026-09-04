@@ -1,0 +1,43 @@
+name: strict
+description: The tightest of every rule, for a course intended to pass anywhere
+reference: https://github.com/ElAmir-Mansour/coursekit/blob/main/docs/PROFILES.md
+
+video:
+  aspect_ratios: ["16:9"]
+  aspect_tolerance: 0.008
+  min_width: 1920
+  min_height: 1080
+  recommended_width: 1920
+  recommended_height: 1080
+  codecs: [h264]
+  min_fps: 25
+  max_fps: 60
+  min_bitrate_kbps: 3000
+  recommended_bitrate_kbps: 8000
+
+audio:
+  required: true
+  codecs: [aac]
+  min_bitrate_kbps: 256
+  recommended_bitrate_kbps: 320
+  channels: [2]
+  sample_rates: [48000]
+  target_lufs: -16.0
+  lufs_tolerance: 1.5
+  max_true_peak_dbtp: -1.5
+
+file:
+  containers: [mp4]
+  max_size_bytes: 2147483648
+  max_duration_seconds: 3600
+  portable_names: true
+  ascii_only: true
+
+consistency:
+  uniform_resolution: true
+  uniform_sample_rate: true
+  uniform_frame_rate: true
+  uniform_codec: true
+  max_loudness_spread_lu: 2.0
+  numbering_gaps: true
+  chapter_ordering: true

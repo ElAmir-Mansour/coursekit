@@ -1,0 +1,30 @@
+name: Feature request
+description: Suggest something coursekit should do
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: >
+        What are you trying to do that coursekit does not help with? Describe
+        the situation rather than the solution — it often turns out there is a
+        better fix than the one either of us thought of first.
+      placeholder: |
+        I deliver courses to a client with their own spec, and I have to check
+        each batch by hand before uploading.
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you had in mind
+      description: Optional. A command, a flag, a profile rule.
+
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked whether a custom profile would solve this (see docs/PROFILES.md)

@@ -1,0 +1,90 @@
+version: 2
+
+project_name: coursekit
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: coursekit
+    main: ./cmd/coursekit
+    binary: coursekit
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    # -s -w strips the symbol table and DWARF data, which roughly halves the
+    # binary. The version is stamped in so `coursekit version` reports a real
+    # release rather than "dev".
+    ldflags:
+      - -s -w
+      - -X github.com/ElAmir-Mansour/coursekit/internal/cli.Version={{.Version}}
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+  - formats: [tar.gz]
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    files:
+      - README.md
+      - LICENSE
+      - CHANGELOG.md
+      - docs/*
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "^ci:"
+      - Merge pull request
+      - Merge branch
+
+brews:
+  - name: coursekit
+    repository:
+      owner: ElAmir-Mansour
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/ElAmir-Mansour/coursekit
+    description: Inspect, check and tidy folders of course recordings
+    license: MIT
+    # ffmpeg is optional: scan works without it, doctor and --loudness need it.
+    # Declared as a recommended dependency so a plain install stays small.
+    dependencies:
+      - name: ffmpeg
+        type: optional
+    test: |
+      assert_match "coursekit", shell_output("#{bin}/coursekit version")
+    install: |
+      bin.install "coursekit"
+
+release:
+  draft: false
+  prerelease: auto
+  footer: |
+    ---
+
+    **Install**
+
+    ```sh
+    brew install ElAmir-Mansour/tap/coursekit
+    ```
+
+    `ffmpeg` is optional and only needed for `doctor` and `--loudness`.
